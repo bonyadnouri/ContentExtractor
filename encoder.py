@@ -32,7 +32,7 @@ class Encoder(ABC):
 @register_encoder(FileType.PDF)
 class PDFEncoder(Encoder):
     def encode(self):
-        logger.debug(f"Start PDF encodisng: {self.path}")
+        logger.debug(f"Start PDF encoding: {self.path}")
         # Actual PDF logic here
 
 @register_encoder(FileType.PPTX, FileType.PPT)
