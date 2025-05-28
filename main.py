@@ -8,9 +8,12 @@ import logging
 import tempfile
 from pathlib import Path
 from encoder import encode
+import os
+from dotenv import load_dotenv
 
+load_dotenv()
 
-logging.basicConfig(level=logging.DEBUG)
+logging.basicConfig(level=logging.INFO)
 
 
 
@@ -32,7 +35,7 @@ def main():
     response = llm.invoke(messages)
     print(response.content)
 
-    encode(Path("/Users/bonyadnouri/Downloads/samplepptx.pptx"),Path("/Users/bonyadnouri/Documents/ContentExtractor/test_output/ppt_to_img.jpg"))
+    encode(Path("/Users/bonyadnouri/Downloads/samplepptx.pptx"),Path("/Users/bonyadnouri/Documents/ContentExtractor/test_output"))
 
 
 if __name__ == "__main__":

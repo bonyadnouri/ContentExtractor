@@ -20,7 +20,7 @@ def register_encoder(*file_types):
 
 class Encoder(ABC):
     def __init__(self, file: Path, output_dir: Path):
-        self.path: Path = file
+        self.file: Path = file
         self.output_dir: Path = output_dir
 
     @abstractmethod
@@ -32,15 +32,23 @@ class Encoder(ABC):
 @register_encoder(FileType.PDF)
 class PDFEncoder(Encoder):
     def encode(self):
-        logger.debug(f"Start PDF encoding: {self.path}")
+        logger.debug(f"Start PDF encoding: {self.file}")
         # Actual PDF logic here
 
 @register_encoder(FileType.PPTX, FileType.PPT)
 class PPTXEncoder(Encoder):
     def encode(self):
-        logger.debug(f"Start PowerPoint encoding: {self.path}")
-        presentation = slides.Presentation(str(self.path))
-        presentation.save(str(self.output_dir), slides.export.SaveFormat.JPG)
+        logger.debug(f"Start PowerPoint encoding: {self.file}")
+        subprocess.run(
+            ["/Applications/LibreOffice.app/Contents/MacOS/soffice", 
+             "--headless", 
+             "--convert-to", 
+             "pdf", 
+             str(self.file), 
+             '--outdir', 
+             str(self.output_dir)],
+            check=True
+        )
 
 
 def get_encoder(file: Path, output_dir: Path):
