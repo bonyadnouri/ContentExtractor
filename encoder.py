@@ -4,7 +4,7 @@ from typing import List, Any
 from enums import FileType
 import logging
 import subprocess
-import aspose.slides as slides
+
 
 logger = logging.getLogger(__name__)
 
@@ -32,7 +32,7 @@ class Encoder(ABC):
 @register_encoder(FileType.PDF)
 class PDFEncoder(Encoder):
     def encode(self):
-        logger.debug(f"Start PDF encoding: {self.path}")
+        logger.debug(f"Start PDF encodisng: {self.path}")
         # Actual PDF logic here
 
 @register_encoder(FileType.PPTX, FileType.PPT)
